@@ -1,0 +1,78 @@
+name: Tests
+
+on:
+  push:
+    branches: [master, develop]
+    paths:
+      - "api/**"
+      - "shared/**"
+      - ".github/workflows/tests.yml"
+  pull_request:
+    branches: [master, develop]
+    paths:
+      - "api/**"
+      - "shared/**"
+      - ".github/workflows/tests.yml"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: pacta_test
+          POSTGRES_USER: pacta
+          POSTGRES_PASSWORD: pacta_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd api && pip install -e .
+          cd ../shared && pip install -e .
+
+      - name: Lint with ruff
+        run: |
+          pip install ruff
+          ruff check api/src shared/src
+
+      - name: Type check with mypy
+        run: |
+          pip install mypy
+          mypy api/src shared/src --ignore-missing-imports
+        continue-on-error: true
+
+      - name: Run tests
+        run: |
+          cd api
+          pytest tests/ -v --cov=src --cov-report=xml
+        env:
+          DATABASE_URL: postgresql+asyncpg://pacta:pacta_test@localhost/pacta_test
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./api/coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+        continue-on-error: true

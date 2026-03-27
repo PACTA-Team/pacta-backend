@@ -89,22 +89,21 @@ test-coverage:
 
 lint:
 	@echo "🔍 Linting code..."
-	cd $(API_DIR) && black src/ tests/ --check
 	cd $(API_DIR) && ruff check src/ tests/
-	cd $(WORKERS_DIR) && black src/ tests/ --check
 	cd $(WORKERS_DIR) && ruff check src/ tests/
-	cd $(SHARED_DIR) && black src/ tests/ --check
 	cd $(SHARED_DIR) && ruff check src/ tests/
 	@echo "✅ Linting passed"
 
+type-check:
+	@echo "🔍 Type checking..."
+	mypy $(API_DIR)/src $(SHARED_DIR)/src --ignore-missing-imports
+	@echo "✅ Type checking passed"
+
 format:
 	@echo "🎨 Formatting code..."
-	cd $(API_DIR) && black src/ tests/
-	cd $(API_DIR) && ruff check src/ tests/ --fix
-	cd $(WORKERS_DIR) && black src/ tests/
-	cd $(WORKERS_DIR) && ruff check src/ tests/ --fix
-	cd $(SHARED_DIR) && black src/ tests/
-	cd $(SHARED_DIR) && ruff check src/ tests/ --fix
+	cd $(API_DIR) && ruff format src/ tests/
+	cd $(WORKERS_DIR) && ruff format src/ tests/
+	cd $(SHARED_DIR) && ruff format src/ tests/
 	@echo "✅ Formatting complete"
 
 # Database targets
