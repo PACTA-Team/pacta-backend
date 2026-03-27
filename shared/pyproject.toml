@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "pacta-shared"
+version = "2.0.0"
+description = "PACTA Shared — Shared utilities, schemas, and exceptions"
+authors = ["PACTA Team <team@pacta.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pydantic = "^2.6.0"
+python-jose = { version = "^3.3.0", extras = ["cryptography"] }
+passlib = { version = "^1.7.4", extras = ["bcrypt"] }
+python-json-logger = "^2.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.0"
+black = "^24.1.1"
+ruff = "^0.3.0"
+mypy = "^1.7.0"
+
+[tool.black]
+line-length = 100
+target-version = ['py312']
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

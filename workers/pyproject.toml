@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "pacta-workers"
+version = "2.0.0"
+description = "PACTA Workers — Background jobs for Contract Lifecycle Management"
+authors = ["PACTA Team <team@pacta.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+apscheduler = "^3.10.0"
+sqlalchemy = { version = "^2.0.0", extras = ["asyncio"] }
+asyncpg = "^0.29.0"
+redis = "^5.0.0"
+pydantic = "^2.6.0"
+pydantic-settings = "^2.1.0"
+python-dotenv = "^1.0.0"
+python-json-logger = "^2.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.0"
+pytest-asyncio = "^0.21.0"
+black = "^24.1.1"
+ruff = "^0.3.0"
+mypy = "^1.7.0"
+
+[tool.black]
+line-length = 100
+target-version = ['py312']
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

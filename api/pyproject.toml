@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "pacta-api"
+version = "2.0.0"
+description = "PACTA API — FastAPI service for Contract Lifecycle Management"
+authors = ["PACTA Team <team@pacta.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.0"
+uvicorn = { version = "^0.30.0", extras = ["standard"] }
+pydantic = "^2.6.0"
+pydantic-settings = "^2.1.0"
+sqlalchemy = { version = "^2.0.0", extras = ["asyncio"] }
+asyncpg = "^0.29.0"
+alembic = "^1.13.0"
+python-jose = { version = "^3.3.0", extras = ["cryptography"] }
+passlib = { version = "^1.7.4", extras = ["bcrypt"] }
+python-multipart = "^0.0.6"
+strawberry-graphql = { version = "^0.235.0", extras = ["fastapi"] }
+redis = "^5.0.0"
+boto3 = "^1.34.0"
+aiofiles = "^23.2.0"
+python-dotenv = "^1.0.0"
+tenacity = "^8.2.0"
+
+# APScheduler (for background jobs)
+apscheduler = "^3.10.0"
+
+# Logging
+python-json-logger = "^2.0.0"
+
+# Rate limiting
+slowapi = "^0.1.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.0"
+pytest-asyncio = "^0.21.0"
+pytest-cov = "^4.1.0"
+httpx = "^0.25.0"
+black = "^24.1.1"
+ruff = "^0.3.0"
+mypy = "^1.7.0"
+faker = "^22.0.0"
+
+[tool.black]
+line-length = 100
+target-version = ['py312']
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+select = ["E", "F", "W", "I", "N"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-v --strict-markers"
+filterwarnings = ["ignore::DeprecationWarning"]
