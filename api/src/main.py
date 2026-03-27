@@ -81,6 +81,9 @@ async def root():
 from src.api.v1 import router as api_router
 app.include_router(api_router)
 
+# Customize OpenAPI schema
+app.openapi = lambda: custom_openapi(app)
+
 # TODO: Include GraphQL
 # from src.graphql.schema import schema
 # app.include_router(GraphQLRouter(schema, path="/graphql"))
