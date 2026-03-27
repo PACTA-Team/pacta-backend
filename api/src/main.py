@@ -47,6 +47,12 @@ app.add_middleware(
     allowed_hosts=["localhost", "127.0.0.1"],
 )
 
+# Middleware: Logging
+app.add_middleware(LoggingMiddleware)
+
+# Register exception handlers
+register_exception_handlers(app)
+
 
 # Health check endpoint
 @app.get("/health", tags=["health"])
