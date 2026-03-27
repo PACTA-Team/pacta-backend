@@ -28,6 +28,7 @@ venv/
 ENV/
 env/
 .venv
+venv*/
 
 # IDEs
 .vscode/
@@ -36,12 +37,15 @@ env/
 *.swo
 *~
 .DS_Store
+*.iml
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
 .tox/
+.mypy_cache/
+.ruff_cache/
 
 # Environment variables
 .env
@@ -63,6 +67,27 @@ minio_data/
 # Build artifacts
 dist/
 build/
+*.egg-info
 
 # Poetry
 poetry.lock
+
+# IDE files
+.DS_Store
+Thumbs.db
+
+# OS
+.AppleDouble
+.LSOverride
+*.swp
+*.swo
+
+# Docker
+docker-compose.override.yml
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+*~
+.#*
