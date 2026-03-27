@@ -71,9 +71,9 @@ async def root():
     }
 
 
-# TODO: Include API routers
-# from src.api.v1.router import api_router
-# app.include_router(api_router, prefix=settings.api_v1_str)
+# Include API routers
+from src.api.v1 import router as api_router
+app.include_router(api_router)
 
 # TODO: Include GraphQL
 # from src.graphql.schema import schema
